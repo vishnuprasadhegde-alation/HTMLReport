@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Market Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 960px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        h2 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        img {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Stock Market Analysis Report</h1>
+
+    <div class="section">
+        <h2>Summary Insights</h2>
+        <p>
+This report showcases stock trends, volatility insights, and moving averages for AMZN, META, and GOOG over the last 30 days.
+Volatility is calculated based on daily price change magnitudes, while moving averages are calculated over a 5-day window.
+</p>
+    </div>
+
+    <div class="section">
+        <h2>Data Table</h2>
+        <table border="1" class="dataframe table">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Date</th>
+      <th>AMZN</th>
+      <th>META</th>
+      <th>GOOG</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2020-01-01</td>
+      <td>120</td>
+      <td>300</td>
+      <td>270.0</td>
+    </tr>
+    <tr>
+      <td>2020-01-02</td>
+      <td>121</td>
+      <td>302</td>
+      <td>271.5</td>
+    </tr>
+    <tr>
+      <td>2020-01-03</td>
+      <td>122</td>
+      <td>304</td>
+      <td>273.0</td>
+    </tr>
+    <tr>
+      <td>2020-01-04</td>
+      <td>123</td>
+      <td>306</td>
+      <td>274.5</td>
+    </tr>
+    <tr>
+      <td>2020-01-05</td>
+      <td>124</td>
+      <td>308</td>
+      <td>276.0</td>
+    </tr>
+    <tr>
+      <td>2020-01-06</td>
+      <td>125</td>
+      <td>310</td>
+      <td>277.5</td>
+    </tr>
+    <tr>
+      <td>2020-01-07</td>
+      <td>126</td>
+      <td>312</td>
+      <td>279.0</td>
+    </tr>
+    <tr>
+      <td>2020-01-08</td>
+      <td>127</td>
+      <td>314</td>
+      <td>280.5</td>
+    </tr>
+    <tr>
+      <td>2020-01-09</td>
+      <td>128</td>
+      <td>316</td>
+      <td>282.0</td>
+    </tr>
+    <tr>
+      <td>2020-01-10</td>
+      <td>129</td>
+      <td>318</td>
+      <td>283.5</td>
+    </tr>
+    <tr>
+      <td>2020-01-11</td>
+      <td>130</td>
+      <td>320</td>
+      <td>285.0</td>
+    </tr>
+    <tr>
+      <td>2020-01-12</td>
+      <td>131</td>
+      <td>322</td>
+      <td>286.5</td>
+    </tr>
+    <tr>
+      <td>2020-01-13</td>
+      <td>132</td>
+      <td>324</td>
+      <td>288.0</td>
+    </tr>
+    <tr>
+      <td>2020-01-14</td>
+      <td>133</td>
+      <td>326</td>
+      <td>289.5</td>
+    </tr>
+    <tr>
+      <td>2020-01-15</td>
+      <td>134</td>
+      <td>328</td>
+      <td>291.0</td>
+    </tr>
+    <tr>
+      <td>2020-01-16</td>
+      <td>135</td>
+      <td>330</td>
+      <td>292.5</td>
+    </tr>
+    <tr>
+      <td>2020-01-17</td>
+      <td>136</td>
+      <td>332</td>
+      <td>294.0</td>
+    </tr>
+    <tr>
+      <td>2020-01-18</td>
+      <td>137</td>
+      <td>334</td>
+      <td>295.5</td>
+    </tr>
+    <tr>
+      <td>2020-01-19</td>
+      <td>138</td>
+      <td>336</td>
+      <td>297.0</td>
+    </tr>
+    <tr>
+      <td>2020-01-20</td>
+      <td>139</td>
+      <td>338</td>
+      <td>298.5</td>
+    </tr>
+    <tr>
+      <td>2020-01-21</td>
+      <td>140</td>
+      <td>340</td>
+      <td>300.0</td>
+    </tr>
+    <tr>
+      <td>2020-01-22</td>
+      <td>141</td>
+      <td>342</td>
+      <td>301.5</td>
+    </tr>
+    <tr>
+      <td>2020-01-23</td>
+      <td>142</td>
+      <td>344</td>
+      <td>303.0</td>
+    </tr>
+    <tr>
+      <td>2020-01-24</td>
+      <td>143</td>
+      <td>346</td>
+      <td>304.5</td>
+    </tr>
+    <tr>
+      <td>2020-01-25</td>
+      <td>144</td>
+      <td>348</td>
+      <td>306.0</td>
+    </tr>
+    <tr>
+      <td>2020-01-26</td>
+      <td>145</td>
+      <td>350</td>
+      <td>307.5</td>
+    </tr>
+    <tr>
+      <td>2020-01-27</td>
+      <td>146</td>
+      <td>352</td>
+      <td>309.0</td>
+    </tr>
+    <tr>
+      <td>2020-01-28</td>
+      <td>147</td>
+      <td>354</td>
+      <td>310.5</td>
+    </tr>
+    <tr>
+      <td>2020-01-29</td>
+      <td>148</td>
+      <td>356</td>
+      <td>312.0</td>
+    </tr>
+    <tr>
+      <td>2020-01-30</td>
+      <td>149</td>
+      <td>358</td>
+      <td>313.5</td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+
+    <!-- stock_predictions -->
+    <div class="section">
+        <h2>Stock Predictions Graph</h2>
+        <img src="stock_predictions.png" alt="Stock Predictions Graph">
+    </div>
+
+
+    <div class="section">
+        <h2>Stock Price Trends</h2>
+        <img src="stock_trends.png" alt="Stock Trends">
+    </div>
+
+
+
+</body>
+</html>
