@@ -173,8 +173,7 @@ html_content = template.render(
 
 
 # Save the full HTML report
-output_dir = "reports"
-output_file = os.path.join(output_dir,"final_stock_report.html")
+output_file = "final_stock_report.html"
 with open(output_file, "w") as f:
     f.write(html_content)
 
