@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Market Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 960px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        h2 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        img {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Stock Market Analysis Report</h1>
+
+    <div class="section">
+        <h2>Summary Insights</h2>
+        <p>{{ text_summary }}</p>
+    </div>
+
+    <div class="section">
+        <h2>Data Table</h2>
+        {{ table | safe }}
+    </div>
+
+    <!-- stock_predictions -->
+    <div class="section">
+        <h2>Stock Predictions Graph</h2>
+        <img src="{{ stock_predictions_graph }}" alt="Stock Predictions Graph">
+    </div>
+
+
+    <div class="section">
+        <h2>Stock Price Trends</h2>
+        <img src="{{ stock_trends_graph }}" alt="Stock Trends">
+    </div>
+
+
+
+</body>
+</html>
