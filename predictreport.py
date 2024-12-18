@@ -2,43 +2,128 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from jinja2 import Template
 import os
+import glob
 import numpy as np
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from statsmodels.tsa.stattools import adfuller
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+from datetime import datetime
+
+prediction_period=4
+# Directory containing CSV files
+csv_directory = './csvfiles'
+
+# List to store individual DataFrames
+df_list = []
+columns_to_remove = ['# Samples','Average','Median','90% Line','95% Line','Min','Max','Received KB/sec','Std. Dev.','Error %','Throughput']
+labels_to_remove=['Compose-Home','Create Glosary','Document hub','CreateArticle','Open Folder','Open Document','Search','TOTAL','Open Aricle - 20 custom fields']
+
+# Create datafile for prediction of response time release over release 
+for file_name in os.listdir(csv_directory):
+    if file_name.endswith('.csv'):
+        file_path = os.path.join(csv_directory, file_name)
+        file_date = file_name.split('_')[-1].split('.')[0]
+
+        df = pd.read_csv(file_path)
+        
+        matching_rows = df[df['Label'].isin(labels_to_remove)]
+
+        df.drop(matching_rows.index, inplace=True)
+
+        df.drop(columns=[col for col in columns_to_remove if col in df.columns], inplace=True)
+
+        transposed_csv=df.T
+        new_header = transposed_csv.iloc[0]
+        transposed_csv = transposed_csv[1:]
+        transposed_csv.columns = new_header
+        # transposed_csv['Date'] = file_date
+        # transposed_csv.set_index('Date', inplace=True)
+        # print("transfromed datafsre :", transposed_csv.head())
+
+        transposed_csv['Date'] = file_date
+        df_list.append(transposed_csv)
 
 
-#create historic aggregate report file for prediction
-# date,response time,label,errors 
+# Concatenate all DataFrames into one
+combined_df = pd.concat(df_list, ignore_index=True, sort=False)
 
-#read from s3
+# Save combined DataFrame to a new CSV file
+combined_df.to_csv('./responsetime_aggregated.csv', index=False)
+print("responsetime_aggregated CSV file created successfully with Date column!")
+
+
+#Create datafile for KPI graphs 
+df1_list=[]
+for file_name in os.listdir(csv_directory):
+    if file_name.endswith('.csv'):
+        file_path = os.path.join(csv_directory, file_name)
+        file_date = file_name.split('_')[-1].split('.')[0]
+
+        df = pd.read_csv(file_path)
+        # df1=df['Label','Error %']
+        # df1 = pd.DataFrame().assign(Label=df['Label'], Errors=df['Error %'])
+
+        matching_rows = df[df['Label'].isin(labels_to_remove)]
+
+        df.drop(matching_rows.index, inplace=True)
+
+        # transposed_csv=df1.T
+        # new_header = transposed_csv.iloc[0]
+        # transposed_csv = transposed_csv[1:]
+        # transposed_csv.columns = new_header
+        # transposed_csv['Date'] = file_date
+        # transposed_csv.set_index('Date', inplace=True)
+        # print("transfromed datafsre :", transposed_csv.head())
+
+        df['Date'] = file_date
+        df1_list.append(df)
+
+combined_df1 = pd.concat(df1_list, ignore_index=True, sort=False)
+combined_df1.to_csv('./results_aggregated.csv', index=False)
+print("results_aggregated CSV file created successfully with Date column!")
+
+
+
+# Use glob to get a list of all CSV files in the directory
+csv_files = glob.glob(os.path.join(csv_directory, '*.csv'))
+
+# If there are no CSV files, print a message and exit
+if not csv_files:
+    print("No CSV files found in the result file directory.")
+else:
+    # Sort the CSV files by modification time (latest first)
+    latest_file = max(csv_files, key=os.path.getmtime)
+    print(f"The latest CSV file is: {latest_file}")
+
+    # function call for graph and table for latest release
+
 
 
 # Read the dataset from CSV
-df = pd.read_csv('testdatastock.csv')
+df = pd.read_csv('responsetime_aggregated.csv')
 
 
 # Convert the 'Date' column to datetime
 df['Date'] = pd.to_datetime(df['Date'])
+df = df.sort_values(by='Date')
 
 # Set 'Date' as index
 df.set_index('Date', inplace=True)
 df['day_of_week'] = df.index.dayofweek
 
 
-df.dropna(subset=['AMZN', 'META', 'GOOG', 'ORCL', 'MSFT', 'day_of_week'], inplace=True)
+df.dropna(subset=['Tag', 'Custom_Fields', 'ReadColumnAPI', 'Update column values API', 'Login','datasources','Schema Selection','Table selection','Column Selection','Logout', 'day_of_week'], inplace=True)
 
 # Define target variables and exogenous variables
-target_vars = ['AMZN', 'META', 'GOOG', 'ORCL', 'MSFT']  # List of target variables
+target_vars = ['Tag', 'Custom_Fields', 'ReadColumnAPI', 'Update column values API', 'Login','datasources','Schema Selection','Table selection','Column Selection','Logout']  # List of target variables
 exog_vars = ['day_of_week']  # List of exogenous variables
 
 
 for target in target_vars:
-    df[target+'_diff']= df[target].diff(periods=1).diff(periods=30).dropna() 
+    df[target+'_diff']= df[target].diff(periods=1).dropna() 
 
 
-n_periods = 30 
-def fit_sarimax_and_predict(target, exog_vars, df, n_periods=30, order=(1, 1, 1), seasonal_order=(1, 1, 0, 7)):
+def fit_sarimax_and_predict(target, exog_vars, df, n_periods=prediction_period, order=(1, 1, 1), seasonal_order=(1, 1, 0, 7)):
     # Define the SARIMAX model
     sarimax_model = SARIMAX(df[target],
                             exog=df[exog_vars],
@@ -53,15 +138,15 @@ def fit_sarimax_and_predict(target, exog_vars, df, n_periods=30, order=(1, 1, 1)
     print(sarimax_results.summary())
     
     # Generate exogenous variables for the future period (next 'n_periods' days)
-    future_dates = pd.date_range(start=df.index[-1] + pd.Timedelta(days=1), periods=n_periods, freq='D')
+    future_dates = pd.date_range(start=df.index[-1] + pd.DateOffset(months=0), periods=prediction_period, freq='MS')
     
     # Create exogenous features for future dates (assuming daily frequency)
     future_exog = pd.DataFrame({
-        'day_of_week': future_dates.dayofweek,
+        'day_of_week': future_dates.month,
     }, index=future_dates)
     
     # Make forecast for the future period
-    forecast = sarimax_results.get_forecast(steps=n_periods, exog=future_exog)
+    forecast = sarimax_results.get_forecast(steps=prediction_period, exog=future_exog)
     
     # Extract predicted values and confidence intervals
     forecast_values = forecast.predicted_mean
@@ -75,9 +160,9 @@ forecasts = {}
 conf_intervals = {}
 
 # Forecast for each target variable
- # Forecasting next 30 days
+ # Forecasting next prediction_period days
 for target in target_vars:
-    forecast_values, conf_int, future_dates = fit_sarimax_and_predict(target+'_diff', exog_vars, df, n_periods=n_periods)
+    forecast_values, conf_int, future_dates = fit_sarimax_and_predict(target+'_diff', exog_vars, df, n_periods=prediction_period)
     forecasts[target+'_diff'] = forecast_values
     conf_intervals[target+'_diff'] = conf_int
 
@@ -85,8 +170,8 @@ for target in target_vars:
 plt.figure(figsize=(15, 12))
 
 # Loop through the first 3 targets to plot their forecasts
-for i, target in enumerate(target_vars[:5]):
-    plt.subplot(8, 1, i+1)
+for i, target in enumerate(target_vars[:9]):
+    plt.subplot(10, 1, i+1)
     plt.plot(df.index, df[target+'_diff'], label=f'Actual {target}', color='blue')
     plt.plot(future_dates, forecasts[target+'_diff'], label=f'Forecast {target}_diff', color='red')
     plt.fill_between(future_dates, conf_intervals[target+'_diff'].iloc[:, 0], conf_intervals[target+'_diff'].iloc[:, 1], color='pink', alpha=0.3)
@@ -97,7 +182,7 @@ for i, target in enumerate(target_vars[:5]):
 
 plt.tight_layout()
 # plt.show()
-trends_graph_file = os.path.join("reports", "stock_predictions.png")
+trends_graph_file = os.path.join("reports", "responsetime_predictions.png")
 plt.savefig(trends_graph_file)
 plt.close()
 
@@ -114,21 +199,21 @@ conf_int_df.to_csv('reports/confidence_intervals_future.csv')
 
 
 # Function to generate stock trend graph
-def generate_trends_graph(df):
-    plt.figure(figsize=(8, 5))
-    plt.plot(df["Date"], df["AMZN"], label="AMZN")
-    plt.plot(df["Date"], df["META"], label="META")
-    plt.plot(df["Date"], df["GOOG"], label="GOOG")
-    plt.xlabel("Date")
-    plt.ylabel("Price")
-    plt.title("Stock Price Trends")
-    plt.legend()
-    plt.xticks(rotation=45)
-    plt.tight_layout()
-    trends_graph_file = os.path.join("reports", "stock_trends.png")
-    plt.savefig(trends_graph_file)
-    plt.close()
-    return trends_graph_file
+# def generate_trends_graph(df):
+#     plt.figure(figsize=(8, 5))
+#     plt.plot(df["Date"], df["AMZN"], label="AMZN")
+#     plt.plot(df["Date"], df["META"], label="META")
+#     plt.plot(df["Date"], df["GOOG"], label="GOOG")
+#     plt.xlabel("Date")
+#     plt.ylabel("Price")
+#     plt.title("Stock Price Trends")
+#     plt.legend()
+#     plt.xticks(rotation=45)
+#     plt.tight_layout()
+#     trends_graph_file = os.path.join("reports", "stock_trends.png")
+#     plt.savefig(trends_graph_file)
+#     plt.close()
+#     return trends_graph_file
 
 
 
@@ -143,7 +228,7 @@ data = {
 df = pd.DataFrame(data)
 
 # Generate graphs
-generate_trends_graph(df)
+# generate_trends_graph(df)
 # volatility_graph = generate_volatility_graph(df)
 # moving_avg_graph = generate_moving_avg(df)
 
@@ -167,8 +252,8 @@ template = Template(template_content)
 html_content = template.render(
     text_summary=text_summary,
     table=table_html,
-    stock_predictions_graph="stock_predictions.png",
-    stock_trends_graph="stock_trends.png",  # Relative to the report directory
+    stock_predictions_graph="responsetime_predictions.png",
+    stock_trends_graph="Responsetime_trends.png",  # Relative to the report directory
 )
 
 
