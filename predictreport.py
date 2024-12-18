@@ -31,6 +31,7 @@ for file_name in os.listdir(csv_directory):
         df.drop(matching_rows.index, inplace=True)
 
         df.drop(columns=[col for col in columns_to_remove if col in df.columns], inplace=True)
+        print("without transpose:", df.head)
 
         transposed_csv=df.T
         new_header = transposed_csv.iloc[0]
@@ -42,6 +43,7 @@ for file_name in os.listdir(csv_directory):
 
         transposed_csv['Date'] = file_date
         df_list.append(transposed_csv)
+        
 
 
 # Concatenate all DataFrames into one
@@ -86,7 +88,7 @@ print("results_aggregated CSV file created successfully with Date column!")
 
 # Use glob to get a list of all CSV files in the directory
 csv_files = glob.glob(os.path.join(csv_directory, '*.csv'))
-
+latest_file=""
 # If there are no CSV files, print a message and exit
 if not csv_files:
     print("No CSV files found in the result file directory.")
@@ -97,11 +99,8 @@ else:
 
     # function call for graph and table for latest release
 
-
-
 # Read the dataset from CSV
 df = pd.read_csv('responsetime_aggregated.csv')
-
 
 # Convert the 'Date' column to datetime
 df['Date'] = pd.to_datetime(df['Date'])
@@ -121,6 +120,8 @@ exog_vars = ['day_of_week']  # List of exogenous variables
 
 for target in target_vars:
     df[target+'_diff']= df[target].diff(periods=1).dropna() 
+print("differentiated: " , df.head)
+df.to_csv("differentiated.csv")
 
 
 def fit_sarimax_and_predict(target, exog_vars, df, n_periods=prediction_period, order=(1, 1, 1), seasonal_order=(1, 1, 0, 7)):
@@ -151,7 +152,6 @@ def fit_sarimax_and_predict(target, exog_vars, df, n_periods=prediction_period, 
     # Extract predicted values and confidence intervals
     forecast_values = forecast.predicted_mean
     conf_int = forecast.conf_int()
-    
     return forecast_values, conf_int, future_dates
 
 
@@ -167,17 +167,17 @@ for target in target_vars:
     conf_intervals[target+'_diff'] = conf_int
 
 # Plot the forecasts for the first few target variables (for example, AMZN, META, GOOG)
-plt.figure(figsize=(15, 12))
+plt.figure(figsize=(15, 20))
 
 # Loop through the first 3 targets to plot their forecasts
-for i, target in enumerate(target_vars[:9]):
+for i, target in enumerate(target_vars[:10]):
     plt.subplot(10, 1, i+1)
-    plt.plot(df.index, df[target+'_diff'], label=f'Actual {target}', color='blue')
-    plt.plot(future_dates, forecasts[target+'_diff'], label=f'Forecast {target}_diff', color='red')
+    plt.plot(df.index, df[target], label=f'Actual {target}', color='blue')
+    plt.plot(future_dates, forecasts[target+'_diff'], label=f'Forecast {target}', color='red')
     plt.fill_between(future_dates, conf_intervals[target+'_diff'].iloc[:, 0], conf_intervals[target+'_diff'].iloc[:, 1], color='pink', alpha=0.3)
-    plt.title(f'{target}_diff Forecast using SARIMAX')
+    plt.title(f'{target}_Response Time Predictions')
     plt.xlabel('Date')
-    plt.ylabel(f'{target}_diff Value')
+    plt.ylabel(f'{target}')
     plt.legend()
 
 plt.tight_layout()
@@ -199,46 +199,64 @@ conf_int_df.to_csv('reports/confidence_intervals_future.csv')
 
 
 # Function to generate stock trend graph
-# def generate_trends_graph(df):
-#     plt.figure(figsize=(8, 5))
-#     plt.plot(df["Date"], df["AMZN"], label="AMZN")
-#     plt.plot(df["Date"], df["META"], label="META")
-#     plt.plot(df["Date"], df["GOOG"], label="GOOG")
-#     plt.xlabel("Date")
-#     plt.ylabel("Price")
-#     plt.title("Stock Price Trends")
-#     plt.legend()
-#     plt.xticks(rotation=45)
-#     plt.tight_layout()
-#     trends_graph_file = os.path.join("reports", "stock_trends.png")
-#     plt.savefig(trends_graph_file)
-#     plt.close()
-#     return trends_graph_file
-
+df_responseTime_trend_graph=pd.read_csv("./responsetime_aggregated.csv")
+def generate_trends_graph(df_responseTime_trend_graph):
+    plt.figure(figsize=(8, 5))
+    for i, target in enumerate(target_vars[:10]):
+        plt.plot(df_responseTime_trend_graph["Date"], df_responseTime_trend_graph[target], label=f'{target}')
+    plt.xlabel("Date")
+    plt.ylabel("Response Time")
+    plt.title("Response Time Trends")
+    plt.legend(
+        loc='upper right',  # Anchor the legend's upper-left corner
+        bbox_to_anchor=(-0.2, 1),  # Position the legend just outside the plot (top-right)
+        borderaxespad=0.1  # Optional: adds a small padding between the plot and the legend
+)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    trends_graph_file = os.path.join("reports", "Responsetime_trends.png")
+    plt.savefig(trends_graph_file)
+    plt.close()
+    return trends_graph_file
 
 
 # Load data (replace this with your own data or CSV)
-data = {
-    "Date": pd.date_range(start="2020-01-01", periods=30),
-    "AMZN": [120 + i for i in range(30)],
-    "META": [300 + i * 2 for i in range(30)],
-    "GOOG": [270 + i * 1.5 for i in range(30)],
-}
+# data = {
+#     "Date": pd.date_range(start="2024-12", periods=30),
+#     "AMZN": [120 + i for i in range(30)],
+#     "META": [300 + i * 2 for i in range(30)],
+#     "GOOG": [270 + i * 1.5 for i in range(30)],
+# }
 
-df = pd.DataFrame(data)
+#Code for printing table for latest numbers in html report
+df_latest = pd.read_csv(latest_file)
+
+#Render table for latest numbers
+table_html = df_latest.to_html(index=False, border=1, classes="table")
+
+#Code for printing component level comparison in html report
+df=pd.read_csv('./responsetime_aggregated.csv')
+df.set_index('Date', inplace=True)
+df = df.sort_values(by='Date')
+df.index.name='Transaction Name'
+df_component=df.T
+print(df_component.head())
+
+# Render table for component level comparison numbers
+table_html_component = df_component.to_html(index=True, border=1, classes="table")
+
+# df = pd.DataFrame(data)
 
 # Generate graphs
-# generate_trends_graph(df)
+responseTime_trend_graph=generate_trends_graph(df_responseTime_trend_graph)
 # volatility_graph = generate_volatility_graph(df)
 # moving_avg_graph = generate_moving_avg(df)
 
-# Render table
-table_html = df.to_html(index=False, border=1, classes="table")
 
 # Create text summary
 text_summary = """
-This report showcases stock trends, volatility insights, and moving averages for AMZN, META, and GOOG over the last 30 days.
-Volatility is calculated based on daily price change magnitudes, while moving averages are calculated over a 5-day window.
+This report showcases KPI trends & prediction numbers for components as well as for latest release.
+Prediction numbers are calculated based on monthly release numbers
 """
 
 # Load external HTML template
@@ -252,10 +270,11 @@ template = Template(template_content)
 html_content = template.render(
     text_summary=text_summary,
     table=table_html,
-    stock_predictions_graph="responsetime_predictions.png",
-    stock_trends_graph="Responsetime_trends.png",  # Relative to the report directory
+    table_component=table_html_component,
+    responseTime_predictions_graph="reports/responsetime_predictions.png",
+    responseTime_trends_graph="reports/Responsetime_trends.png",
+    errors_trends_graph="reports/Errors_trends.png",  # Relative to the report directory
 )
-
 
 # Save the full HTML report
 output_file = "final_stock_report.html"
