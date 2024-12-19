@@ -358,7 +358,7 @@ throughput_trend_graph=generate_trends_graph2(df_tps_trend_graph)
 
 # Create text summary
 text_summary = """
-This report showcases Page Response times trends & Prediction, Error trends for the components of Alation application. We have considered the last five releases test results for the analysis and future two month response times are predicted. 
+This report showcases Page Response times trends & Prediction, Error, Throughput trends for the components of Alation application. We have considered the last five releases test results for the analysis and future two month response times are predicted. 
 """
 
 # Load external HTML template
