@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market Report</title>
+    <style>
+        /* Reset default margins and paddings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Full-screen layout */
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Container to center content horizontally */
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            justify-content: flex-start;
+            padding: 20px;
+        }
+
+        /* Heading style */
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        /* Styling for paragraphs */
+        p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Styling for sections */
+        .section {
+            margin-bottom: 40px;
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Image styling */
+        img {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Stock Market Analysis Report</h1>
+
+        <div class="section">
+            <h2>Summary Insights</h2>
+            <p>{{ text_summary }}</p>
+        </div>
+
+        <div class="section">
+            <h2>Data Table</h2>
+            {{ table | safe }}
+        </div>
+
+        <div class="section">
+            <h2>Stock Predictions Graph</h2>
+            <img src="{{ stock_predictions_graph }}" alt="Stock Predictions Graph">
+        </div>
+
+        <div class="section">
+            <h2>Stock Price Trends</h2>
+            <img src="{{ stock_trends_graph }}" alt="Stock Price Trends">
+        </div>
+    </div>
+
+</body>
+</html>
