@@ -26,9 +26,8 @@ for file_name in os.listdir(csv_directory):
 
         df = pd.read_csv(file_path)
         
-        matching_rows = df[df['Label'].isin(labels_to_remove)]
-
-        df.drop(matching_rows.index, inplace=True)
+        # matching_rows = df[df['Label'].isin(labels_to_remove)]
+        # df.drop(matching_rows.index, inplace=True)
 
         df.drop(columns=[col for col in columns_to_remove if col in df.columns], inplace=True)
         print("without transpose:", df.head)
@@ -99,6 +98,14 @@ else:
 
     # function call for graph and table for latest release
 
+
+df_temp = pd.read_csv('responsetime_aggregated.csv')
+# df_temp = df_temp.drop('Date', axis=1)
+target_vars = [col for col in df_temp.columns if col != 'Date']
+
+# for col in target_vars:
+#     df_temp[col] = (df_temp[col] / 1000).round(1)
+
 # Read the dataset from CSV
 df = pd.read_csv('responsetime_aggregated.csv')
 
@@ -115,7 +122,7 @@ df.dropna(subset=['Tag', 'Custom_Fields', 'ReadColumnAPI', 'Update column values
 
 # Define target variables and exogenous variables
 # target_vars = ['Tag', 'Custom_Fields', 'ReadColumnAPI', 'Update column values API', 'Login','datasources','Schema Selection','Table selection','Column Selection','Logout']  # List of target variables
-target_vars = ['Login','Homepage','Search','datasources','Schema Selection','Table selection','Column Selection','Logout','Tag','Custom_Fields', 'ReadColumnAPI', 'Update column values API']  # List of target variables
+# target_vars = ['Login','Homepage','Search','datasources','Schema Selection','Table selection','Column Selection','Logout','Tag','Custom_Fields', 'ReadColumnAPI', 'Update column values API']  # List of target variables
 
 exog_vars = ['day_of_week']  # List of exogenous variables
 
@@ -170,11 +177,11 @@ for target in target_vars:
     conf_intervals[target+'_diff'] = conf_int+last_value
 
 # Plot the forecasts for the first few target variables (for example, AMZN, META, GOOG)
-plt.figure(figsize=(15, 40))
+plt.figure(figsize=(15, 120))
 
 # Loop through the first 3 targets to plot their forecasts
-for i, target in enumerate(target_vars[:12]):
-    plt.subplot(12, 1, i+1)
+for i, target in enumerate(target_vars):
+    plt.subplot(len(target_vars), 1, i+1)
     plt.plot(df.index, df[target], label=f'Actual {target}', color='blue')
     plt.plot(future_dates, forecasts[target+'_diff'], label=f'Forecast {target}', color='red')
 
@@ -340,7 +347,12 @@ df.set_index('Date', inplace=True)
 df = df.sort_values(by='Date')
 df.index.name='Transaction Name'
 df_component=df.T
+
+df_component.iloc[:,:] = df_component.iloc[:,:] / 1000
 print(df_component.head())
+
+df_component['Regression status']=df_component[df_component.columns[-1]] > (df_component[df_component.columns[-2]]+1)
+
 
 # Render table for component level comparison numbers
 table_html_component = df_component.to_html(index=True, border=1, classes="table")
