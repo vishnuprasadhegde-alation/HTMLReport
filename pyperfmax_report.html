@@ -566,7 +566,7 @@ This report showcases Transaction level Response times trends & Predictions, Err
       <td>1738.80</td>
     </tr>
     <tr>
-      <td>Lineage- 500 to1k df</td>
+      <td>Lineage</td>
       <td>46</td>
       <td>1738</td>
       <td>1635</td>
@@ -1338,7 +1338,7 @@ This report showcases Transaction level Response times trends & Predictions, Err
       <td>1738.80</td>
     </tr>
     <tr>
-      <td>Lineage- 500 to1k df</td>
+      <td>Lineage</td>
       <td>46</td>
       <td>1738</td>
       <td>1635</td>
@@ -2162,7 +2162,7 @@ This report showcases Transaction level Response times trends & Predictions, Err
       <td>1738.80</td>
     </tr>
     <tr>
-      <td>Lineage- 500 to1k df</td>
+      <td>Lineage</td>
       <td>46</td>
       <td>1738</td>
       <td>1635</td>
@@ -2498,7 +2498,7 @@ This report showcases Transaction level Response times trends & Predictions, Err
 		</div>
 		<div id="Component level comparison" class="tabcontent" >
 			<div class="column">
-				<h2>Component Level Comparison Table (Response Time in milliseconds)</h2>
+				<h2>Component Level Comparison Table (Response Time in Seconds)</h2>
                 <table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
@@ -2509,431 +2509,549 @@ This report showcases Transaction level Response times trends & Predictions, Err
       <th>2024-10</th>
       <th>2024-11</th>
       <th>2024-12</th>
+      <th>Regression status</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>Tag</th>
-      <td>406.0</td>
-      <td>495.0</td>
-      <td>607.0</td>
-      <td>776.0</td>
-      <td>645.0</td>
-      <td>530.0</td>
+      <td>0.406</td>
+      <td>0.495</td>
+      <td>0.607</td>
+      <td>0.776</td>
+      <td>0.645</td>
+      <td>0.530</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>Flag</th>
-      <td>479.0</td>
-      <td>571.0</td>
-      <td>607.0</td>
-      <td>712.0</td>
-      <td>404.0</td>
-      <td>422.0</td>
+      <td>0.479</td>
+      <td>0.571</td>
+      <td>0.607</td>
+      <td>0.712</td>
+      <td>0.404</td>
+      <td>0.422</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>Custom_Fields</th>
-      <td>595.0</td>
-      <td>716.0</td>
-      <td>709.0</td>
-      <td>872.0</td>
-      <td>802.0</td>
-      <td>809.0</td>
+      <td>0.595</td>
+      <td>0.716</td>
+      <td>0.709</td>
+      <td>0.872</td>
+      <td>0.802</td>
+      <td>0.809</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>DS_objects_Query_API</th>
-      <td>790.0</td>
-      <td>808.0</td>
-      <td>820.0</td>
-      <td>936.0</td>
-      <td>899.0</td>
-      <td>858.0</td>
+      <td>0.790</td>
+      <td>0.808</td>
+      <td>0.820</td>
+      <td>0.936</td>
+      <td>0.899</td>
+      <td>0.858</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>ReadColumnAPI</th>
-      <td>826.0</td>
-      <td>820.0</td>
-      <td>880.0</td>
-      <td>980.0</td>
-      <td>1007.0</td>
-      <td>940.0</td>
+      <td>0.826</td>
+      <td>0.820</td>
+      <td>0.880</td>
+      <td>0.980</td>
+      <td>1.007</td>
+      <td>0.940</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>CreateArticleSimple</th>
-      <td>929.0</td>
-      <td>1082.0</td>
-      <td>1182.0</td>
-      <td>1166.0</td>
-      <td>1225.0</td>
-      <td>987.0</td>
+      <td>0.929</td>
+      <td>1.082</td>
+      <td>1.182</td>
+      <td>1.166</td>
+      <td>1.225</td>
+      <td>0.987</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>SimpleArticlesCreate</th>
-      <td>929.0</td>
-      <td>1082.0</td>
-      <td>1182.0</td>
-      <td>1166.0</td>
-      <td>1225.0</td>
-      <td>987.0</td>
+      <td>0.929</td>
+      <td>1.082</td>
+      <td>1.182</td>
+      <td>1.166</td>
+      <td>1.225</td>
+      <td>0.987</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>Read Articles</th>
-      <td>1095.0</td>
-      <td>1066.0</td>
-      <td>1066.0</td>
-      <td>1363.0</td>
-      <td>1297.0</td>
-      <td>1110.0</td>
+      <td>1.095</td>
+      <td>1.066</td>
+      <td>1.066</td>
+      <td>1.363</td>
+      <td>1.297</td>
+      <td>1.110</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>Update column values API</th>
-      <td>972.0</td>
-      <td>983.0</td>
-      <td>1058.0</td>
-      <td>1104.0</td>
-      <td>1057.0</td>
-      <td>961.0</td>
+      <td>0.972</td>
+      <td>0.983</td>
+      <td>1.058</td>
+      <td>1.104</td>
+      <td>1.057</td>
+      <td>0.961</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>update articles API</th>
-      <td>2348.0</td>
-      <td>2469.0</td>
-      <td>2351.0</td>
-      <td>2703.0</td>
-      <td>2207.0</td>
-      <td>1830.0</td>
+      <td>2.348</td>
+      <td>2.469</td>
+      <td>2.351</td>
+      <td>2.703</td>
+      <td>2.207</td>
+      <td>1.830</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>update complex articles API</th>
-      <td>2348.0</td>
-      <td>2469.0</td>
-      <td>2351.0</td>
-      <td>2703.0</td>
-      <td>2207.0</td>
-      <td>1830.0</td>
+      <td>2.348</td>
+      <td>2.469</td>
+      <td>2.351</td>
+      <td>2.703</td>
+      <td>2.207</td>
+      <td>1.830</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>Login</th>
-      <td>2225.0</td>
-      <td>3007.0</td>
-      <td>3038.0</td>
-      <td>3484.0</td>
-      <td>3470.0</td>
-      <td>2799.0</td>
+      <td>2.225</td>
+      <td>3.007</td>
+      <td>3.038</td>
+      <td>3.484</td>
+      <td>3.470</td>
+      <td>2.799</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>Homepage</th>
-      <td>13304.0</td>
-      <td>12248.0</td>
-      <td>11615.0</td>
-      <td>11299.0</td>
-      <td>12209.0</td>
-      <td>10072.0</td>
+      <td>13.304</td>
+      <td>12.248</td>
+      <td>11.615</td>
+      <td>11.299</td>
+      <td>12.209</td>
+      <td>10.072</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>datasources</th>
-      <td>2200.0</td>
-      <td>2290.0</td>
-      <td>2065.0</td>
-      <td>2655.0</td>
-      <td>2811.0</td>
-      <td>2708.0</td>
+      <td>2.200</td>
+      <td>2.290</td>
+      <td>2.065</td>
+      <td>2.655</td>
+      <td>2.811</td>
+      <td>2.708</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>datasource</th>
-      <td>2200.0</td>
-      <td>2290.0</td>
-      <td>2065.0</td>
-      <td>2655.0</td>
-      <td>2811.0</td>
-      <td>2708.0</td>
+      <td>2.200</td>
+      <td>2.290</td>
+      <td>2.065</td>
+      <td>2.655</td>
+      <td>2.811</td>
+      <td>2.708</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>DS Page</th>
       <td>NaN</td>
       <td>NaN</td>
-      <td>2108.0</td>
-      <td>2852.0</td>
-      <td>2293.0</td>
-      <td>2218.0</td>
+      <td>2.108</td>
+      <td>2.852</td>
+      <td>2.293</td>
+      <td>2.218</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Compose-Home</th>
+      <td>9.316</td>
+      <td>9.434</td>
+      <td>7.358</td>
+      <td>8.589</td>
+      <td>8.680</td>
+      <td>10.690</td>
+      <td>True</td>
     </tr>
     <tr>
       <th>schema</th>
-      <td>1462.0</td>
-      <td>2530.0</td>
-      <td>1914.0</td>
-      <td>3334.0</td>
-      <td>2471.0</td>
-      <td>1622.0</td>
+      <td>1.462</td>
+      <td>2.530</td>
+      <td>1.914</td>
+      <td>3.334</td>
+      <td>2.471</td>
+      <td>1.622</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>DS Selection</th>
-      <td>8691.0</td>
-      <td>8858.0</td>
-      <td>5962.0</td>
-      <td>6687.0</td>
-      <td>6478.0</td>
-      <td>4979.0</td>
+      <td>8.691</td>
+      <td>8.858</td>
+      <td>5.962</td>
+      <td>6.687</td>
+      <td>6.478</td>
+      <td>4.979</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>Compose-Connection-settings</th>
-      <td>7225.0</td>
-      <td>2958.0</td>
-      <td>2872.0</td>
-      <td>21511.0</td>
-      <td>3078.0</td>
-      <td>3247.0</td>
+      <td>7.225</td>
+      <td>2.958</td>
+      <td>2.872</td>
+      <td>21.511</td>
+      <td>3.078</td>
+      <td>3.247</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>HTTP Request-executesession</th>
-      <td>765.0</td>
-      <td>754.0</td>
-      <td>839.0</td>
-      <td>917.0</td>
-      <td>751.0</td>
-      <td>663.0</td>
+      <td>0.765</td>
+      <td>0.754</td>
+      <td>0.839</td>
+      <td>0.917</td>
+      <td>0.751</td>
+      <td>0.663</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>Compose-Query-Run</th>
-      <td>1015.0</td>
-      <td>964.0</td>
-      <td>975.0</td>
-      <td>5137.0</td>
-      <td>2665.0</td>
-      <td>2291.0</td>
+      <td>1.015</td>
+      <td>0.964</td>
+      <td>0.975</td>
+      <td>5.137</td>
+      <td>2.665</td>
+      <td>2.291</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>query_run</th>
-      <td>925.0</td>
-      <td>903.0</td>
-      <td>917.0</td>
-      <td>5136.0</td>
-      <td>987.0</td>
-      <td>1002.0</td>
+      <td>0.925</td>
+      <td>0.903</td>
+      <td>0.917</td>
+      <td>5.136</td>
+      <td>0.987</td>
+      <td>1.002</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>Schema Selection</th>
-      <td>9834.0</td>
-      <td>9887.0</td>
-      <td>5613.0</td>
-      <td>5751.0</td>
-      <td>6120.0</td>
-      <td>5619.0</td>
+      <td>9.834</td>
+      <td>9.887</td>
+      <td>5.613</td>
+      <td>5.751</td>
+      <td>6.120</td>
+      <td>5.619</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>table</th>
-      <td>5154.0</td>
-      <td>7132.0</td>
-      <td>5869.0</td>
-      <td>9142.0</td>
-      <td>8482.0</td>
-      <td>7438.0</td>
+      <td>5.154</td>
+      <td>7.132</td>
+      <td>5.869</td>
+      <td>9.142</td>
+      <td>8.482</td>
+      <td>7.438</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>Domain</th>
-      <td>4993.0</td>
-      <td>5196.0</td>
-      <td>985.0</td>
-      <td>998.0</td>
-      <td>914.0</td>
-      <td>1079.0</td>
+      <td>4.993</td>
+      <td>5.196</td>
+      <td>0.985</td>
+      <td>0.998</td>
+      <td>0.914</td>
+      <td>1.079</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>Table selection</th>
-      <td>10702.0</td>
-      <td>10094.0</td>
-      <td>6452.0</td>
-      <td>7780.0</td>
-      <td>7365.0</td>
-      <td>6972.0</td>
+      <td>10.702</td>
+      <td>10.094</td>
+      <td>6.452</td>
+      <td>7.780</td>
+      <td>7.365</td>
+      <td>6.972</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>Search</th>
-      <td>9691.0</td>
-      <td>8535.0</td>
-      <td>20707.0</td>
-      <td>28076.0</td>
-      <td>21995.0</td>
-      <td>15082.0</td>
-    </tr>
-    <tr>
-      <th>Lineage- 500 to1k df</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>3012.0</td>
-      <td>2459.0</td>
-      <td>2632.0</td>
-      <td>2137.0</td>
-    </tr>
-    <tr>
-      <th>column</th>
-      <td>2561.0</td>
-      <td>3832.0</td>
-      <td>2325.0</td>
-      <td>3100.0</td>
-      <td>3108.0</td>
-      <td>2456.0</td>
-    </tr>
-    <tr>
-      <th>query</th>
-      <td>966.0</td>
-      <td>905.0</td>
-      <td>954.0</td>
-      <td>1156.0</td>
-      <td>1133.0</td>
-      <td>914.0</td>
-    </tr>
-    <tr>
-      <th>connectors</th>
-      <td>684.0</td>
-      <td>726.0</td>
-      <td>673.0</td>
-      <td>864.0</td>
-      <td>817.0</td>
-      <td>784.0</td>
-    </tr>
-    <tr>
-      <th>Open Domain</th>
-      <td>4857.0</td>
-      <td>5176.0</td>
-      <td>11607.0</td>
-      <td>13792.0</td>
-      <td>13526.0</td>
-      <td>12977.0</td>
-    </tr>
-    <tr>
-      <th>term</th>
-      <td>1577.0</td>
-      <td>1699.0</td>
-      <td>5953.0</td>
-      <td>6709.0</td>
-      <td>801.0</td>
-      <td>968.0</td>
-    </tr>
-    <tr>
-      <th>Compose-Queryfetchresults</th>
-      <td>3894.0</td>
-      <td>3899.0</td>
-      <td>3902.0</td>
-      <td>4404.0</td>
-      <td>4413.0</td>
-      <td>4151.0</td>
-    </tr>
-    <tr>
-      <th>Result Latest</th>
-      <td>854.0</td>
-      <td>876.0</td>
-      <td>838.0</td>
-      <td>997.0</td>
-      <td>756.0</td>
-      <td>400.0</td>
-    </tr>
-    <tr>
-      <th>Compose-export-Connection-settings</th>
-      <td>3025.0</td>
-      <td>3331.0</td>
-      <td>3044.0</td>
-      <td>14481.0</td>
-      <td>3371.0</td>
-      <td>2792.0</td>
-    </tr>
-    <tr>
-      <th>Export-Query-Run</th>
-      <td>1044.0</td>
-      <td>1180.0</td>
-      <td>961.0</td>
-      <td>4415.0</td>
-      <td>2611.0</td>
-      <td>2046.0</td>
-    </tr>
-    <tr>
-      <th>query_export</th>
-      <td>1023.0</td>
-      <td>1101.0</td>
-      <td>785.0</td>
-      <td>4414.0</td>
-      <td>1085.0</td>
-      <td>1080.0</td>
-    </tr>
-    <tr>
-      <th>Govern</th>
-      <td>5125.0</td>
-      <td>5245.0</td>
-      <td>1384.0</td>
-      <td>1663.0</td>
-      <td>1426.0</td>
-      <td>2185.0</td>
-    </tr>
-    <tr>
-      <th>Compose-Export-Queryfetchresults</th>
-      <td>3818.0</td>
-      <td>3923.0</td>
-      <td>3722.0</td>
-      <td>15524.0</td>
-      <td>4112.0</td>
-      <td>3854.0</td>
-    </tr>
-    <tr>
-      <th>Launch Workflows</th>
-      <td>6839.0</td>
-      <td>7721.0</td>
-      <td>6322.0</td>
-      <td>6856.0</td>
-      <td>6500.0</td>
-      <td>5148.0</td>
-    </tr>
-    <tr>
-      <th>Column Selection</th>
-      <td>7927.0</td>
-      <td>8636.0</td>
-      <td>6586.0</td>
-      <td>6525.0</td>
-      <td>7332.0</td>
-      <td>6030.0</td>
-    </tr>
-    <tr>
-      <th>Logout</th>
-      <td>866.0</td>
-      <td>479.0</td>
-      <td>829.0</td>
-      <td>1107.0</td>
-      <td>1074.0</td>
-      <td>752.0</td>
-    </tr>
-    <tr>
-      <th>Create_glossary</th>
-      <td>29336.0</td>
-      <td>12818.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>DS search</th>
-      <td>2489.0</td>
-      <td>2365.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>Datasource Custom field</th>
-      <td>612.0</td>
-      <td>239.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>9.691</td>
+      <td>8.535</td>
+      <td>20.707</td>
+      <td>28.076</td>
+      <td>21.995</td>
+      <td>15.082</td>
+      <td>False</td>
     </tr>
     <tr>
       <th>Lineage</th>
-      <td>1879.0</td>
-      <td>2013.0</td>
+      <td>1.879</td>
+      <td>2.013</td>
+      <td>3.012</td>
+      <td>2.459</td>
+      <td>2.632</td>
+      <td>2.137</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>column</th>
+      <td>2.561</td>
+      <td>3.832</td>
+      <td>2.325</td>
+      <td>3.100</td>
+      <td>3.108</td>
+      <td>2.456</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Create Glosary</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>26.433</td>
+      <td>29.435</td>
+      <td>30.376</td>
+      <td>28.447</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>query</th>
+      <td>0.966</td>
+      <td>0.905</td>
+      <td>0.954</td>
+      <td>1.156</td>
+      <td>1.133</td>
+      <td>0.914</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>connectors</th>
+      <td>0.684</td>
+      <td>0.726</td>
+      <td>0.673</td>
+      <td>0.864</td>
+      <td>0.817</td>
+      <td>0.784</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Open Domain</th>
+      <td>4.857</td>
+      <td>5.176</td>
+      <td>11.607</td>
+      <td>13.792</td>
+      <td>13.526</td>
+      <td>12.977</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>term</th>
+      <td>1.577</td>
+      <td>1.699</td>
+      <td>5.953</td>
+      <td>6.709</td>
+      <td>0.801</td>
+      <td>0.968</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Compose-Queryfetchresults</th>
+      <td>3.894</td>
+      <td>3.899</td>
+      <td>3.902</td>
+      <td>4.404</td>
+      <td>4.413</td>
+      <td>4.151</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Result Latest</th>
+      <td>0.854</td>
+      <td>0.876</td>
+      <td>0.838</td>
+      <td>0.997</td>
+      <td>0.756</td>
+      <td>0.400</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>CreateArticle</th>
+      <td>47.416</td>
+      <td>51.936</td>
+      <td>49.538</td>
+      <td>54.651</td>
+      <td>53.231</td>
+      <td>48.398</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Document hub</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>9.911</td>
+      <td>10.787</td>
+      <td>11.515</td>
+      <td>10.382</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Open Folder</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>11.936</td>
+      <td>19.837</td>
+      <td>14.988</td>
+      <td>13.735</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Compose-export-Connection-settings</th>
+      <td>3.025</td>
+      <td>3.331</td>
+      <td>3.044</td>
+      <td>14.481</td>
+      <td>3.371</td>
+      <td>2.792</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Export-Query-Run</th>
+      <td>1.044</td>
+      <td>1.180</td>
+      <td>0.961</td>
+      <td>4.415</td>
+      <td>2.611</td>
+      <td>2.046</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>query_export</th>
+      <td>1.023</td>
+      <td>1.101</td>
+      <td>0.785</td>
+      <td>4.414</td>
+      <td>1.085</td>
+      <td>1.080</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Open Document</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>11.717</td>
+      <td>20.578</td>
+      <td>14.598</td>
+      <td>14.266</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Govern</th>
+      <td>5.125</td>
+      <td>5.245</td>
+      <td>1.384</td>
+      <td>1.663</td>
+      <td>1.426</td>
+      <td>2.185</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Compose-Export-Queryfetchresults</th>
+      <td>3.818</td>
+      <td>3.923</td>
+      <td>3.722</td>
+      <td>15.524</td>
+      <td>4.112</td>
+      <td>3.854</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Launch Workflows</th>
+      <td>6.839</td>
+      <td>7.721</td>
+      <td>6.322</td>
+      <td>6.856</td>
+      <td>6.500</td>
+      <td>5.148</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Column Selection</th>
+      <td>7.927</td>
+      <td>8.636</td>
+      <td>6.586</td>
+      <td>6.525</td>
+      <td>7.332</td>
+      <td>6.030</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Logout</th>
+      <td>0.866</td>
+      <td>0.479</td>
+      <td>0.829</td>
+      <td>1.107</td>
+      <td>1.074</td>
+      <td>0.752</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>TOTAL</th>
+      <td>6.578</td>
+      <td>6.958</td>
+      <td>13.874</td>
+      <td>16.930</td>
+      <td>14.811</td>
+      <td>10.719</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Create_glossary</th>
+      <td>29.336</td>
+      <td>12.818</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Open Aricle - 20 custom fields</th>
+      <td>15.471</td>
+      <td>6.975</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>DS search</th>
+      <td>2.489</td>
+      <td>2.365</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>Datasource Custom field</th>
+      <td>0.612</td>
+      <td>0.239</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>False</td>
     </tr>
   </tbody>
 </table>
