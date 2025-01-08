@@ -79,8 +79,6 @@ jobs:
         wget https://repo1.maven.org/maven2/com/blazemeter/jmeter-plugins-random-csv-data-set/0.8/jmeter-plugins-random-csv-data-set-0.8.jar -P /opt/apache-jmeter-5.4.1/lib/ext/
 
 
-https://jmeter-plugins.org/get/
-
     # Step 6: Create the CSV report from the .jtl file
     - name: Generate CSV from JTL file
       run: |
