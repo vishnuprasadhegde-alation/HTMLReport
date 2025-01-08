@@ -94,6 +94,8 @@ jobs:
 
         echo "Latest file: $latest_file"
 
+        sudo chmod +x /opt/apache-jmeter-5.4.1/bin/JMeterPluginsCMD.sh
+
 
         # Use the latest .jtl file to generate the CSV report
         /opt/apache-jmeter-5.4.1/bin/JMeterPluginsCMD.sh --generate-csv ./aggregated_report.csv \
