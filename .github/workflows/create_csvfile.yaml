@@ -35,12 +35,25 @@ jobs:
     # Step 4: Install JMeter Plugins (using JMeter Plugin Manager)
     - name: Install JMeter Plugins
       run: |
-        # Download and install the JMeter Plugins Manager
+        # Download cmdrunner-2.3.jar for JMeter Plugin Manager
+        wget https://repo1.maven.org/maven2/kg/apc/cmdrunner/2.3/cmdrunner-2.3.jar -P /opt/jmeter/lib/ext/
+
+        # Change to the ext directory
+        cd /opt/jmeter/lib/ext/ 
+
+        # Download the JMeter Plugin Manager JAR file
         wget https://jmeter-plugins.org/get/ -O jmeter-plugins-manager.jar
-        mv jmeter-plugins-manager.jar /opt/jmeter/lib/ext/
-        java -cp /opt/jmeter/lib/ext/jmeter-plugins-manager.jar org.jmeterplugins.repository.PluginManagerCMDInstaller
-        cd  /opt/jmeter/bin/
-        ./PluginsManagerCMD.sh install jpgc-dummy,jpgc-graphs-basic,jpgc-graphs-additional,jmeter-grpc-request
+
+        # Run the Plugin Manager CMD installer
+        java -cp jmeter-plugins-manager.jar org.jmeterplugins.repository.PluginManagerCMDInstaller
+
+        # Install required plugins using PluginsManagerCMD.sh
+        /opt/jmeter/bin/PluginsManagerCMD.sh install jpgc-dummy,jpgc-graphs-basic,jpgc-graphs-additional,jmeter-grpc-request
+
+        # Download additional required JARs for other plugins
+        wget https://github.com/DataDog/jmeter-datadog-backend-listener/releases/download/0.4.0/jmeter-datadog-backend-listener-0.4.0.jar -P /opt/jmeter/lib/ext/
+        wget https://repo1.maven.org/maven2/com/blazemeter/jmeter-parallel/0.11/jmeter-parallel-0.11.jar -P /opt/jmeter/lib/ext/
+        wget https://repo1.maven.org/maven2/com/blazemeter/jmeter-plugins-random-csv-data-set/0.8/jmeter-plugins-random-csv-data-set-0.8.jar -P /opt/jmeter/lib/ext/
 
 
     # Step 5: Get the most recently modified .jtl file
@@ -65,7 +78,7 @@ jobs:
     - name: Generate CSV from JTL file
       run: |
         cd  /opt/jmeter/bin/
-        
+
         # Use the latest .jtl file to generate the CSV report
         ./JMeterPluginsCMD.sh --generate-csv ./aggregated_report.csv \
           --input-jtl ${{ env.latest_file }} \
