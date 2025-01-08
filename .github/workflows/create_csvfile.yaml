@@ -25,7 +25,7 @@ jobs:
         distribution: 'zulu'  
     
 
-    # Step 4: Download and install JMeter
+    # Step 3: Download and install JMeter
     - name: Install JMeter
       run: |
         wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.4.1.tgz
@@ -33,10 +33,10 @@ jobs:
 
 
     # Step 4: check directories 
-      - name: Check if directory exists
-        run: |
-          if [ -d "/opt/apache-jmeter-5.4.1" ]; then
-            echo "JMeter directory exists."
+    - name: Check if directory exists
+      run: |
+        if [ -d "/opt/apache-jmeter-5.4.1" ]; then
+          echo "JMeter directory exists."
           else
             echo "JMeter directory does not exist."
           fi
