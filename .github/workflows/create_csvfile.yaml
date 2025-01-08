@@ -38,6 +38,7 @@ jobs:
         # Download and install the JMeter Plugins Manager
         wget https://jmeter-plugins.org/get/ -O jmeter-plugins-manager.jar
         mv jmeter-plugins-manager.jar /opt/jmeter/lib/ext/
+        java -cp /opt/jmeter/lib/ext/jmeter-plugins-manager.jar org.jmeterplugins.repository.PluginManagerCMDInstaller
         cd  /opt/jmeter/bin/
         ./PluginsManagerCMD.sh install jpgc-dummy,jpgc-graphs-basic,jpgc-graphs-additional,jmeter-grpc-request
 
@@ -63,6 +64,8 @@ jobs:
     # Step 6: Create the CSV report from the .jtl file
     - name: Generate CSV from JTL file
       run: |
+        cd  /opt/jmeter/bin/
+        
         # Use the latest .jtl file to generate the CSV report
         ./JMeterPluginsCMD.sh --generate-csv ./aggregated_report.csv \
           --input-jtl ${{ env.latest_file }} \
