@@ -33,19 +33,19 @@ jobs:
       run: |
         wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.4.1.tgz
         sudo tar -xvzf apache-jmeter-5.4.1.tgz -C /opt/
-        echo "JMETER_HOME=/opt/apache-jmeter-5.4.1" >> $GITHUB_ENV
+        # echo "JMETER_HOME=/opt/apache-jmeter-5.4.1" >> $GITHUB_ENV
         echo "PATH=\$PATH:/opt/apache-jmeter-5.4.1/bin" >> $GITHUB_ENV
-        $JMETER_HOME/bin/jmeter --version
+        /opt/apache-jmeter-5.4.1/bin/jmeter --version
 
 
     # Step 5: Install JMeter Plugins (using JMeter Plugin Manager)
     - name: Install JMeter Plugins
       run: |
         # Download cmdrunner-2.3.jar for JMeter Plugin Manager
-        wget https://repo1.maven.org/maven2/kg/apc/cmdrunner/2.3/cmdrunner-2.3.jar -P $JMETER_HOME/lib/
+        wget https://repo1.maven.org/maven2/kg/apc/cmdrunner/2.3/cmdrunner-2.3.jar -P /opt/apache-jmeter-5.4.1/lib/
 
         # Change to the ext directory
-        cd $JMETER_HOME/lib/ext/ 
+        cd /opt/apache-jmeter-5.4.1/lib/ext/ 
 
         # Download the JMeter Plugin Manager JAR file
         wget https://jmeter-plugins.org/get/ -O jmeter-plugins-manager.jar
@@ -54,12 +54,12 @@ jobs:
         java -cp jmeter-plugins-manager.jar org.jmeterplugins.repository.PluginManagerCMDInstaller
 
         # Install required plugins using PluginsManagerCMD.sh
-        $JMETER_HOME/bin/PluginsManagerCMD.sh install jpgc-dummy,jpgc-graphs-basic,jpgc-graphs-additional,jmeter-grpc-request
+        /opt/apache-jmeter-5.4.1/bin/PluginsManagerCMD.sh install jpgc-dummy,jpgc-graphs-basic,jpgc-graphs-additional,jmeter-grpc-request
 
         # Download additional required JARs for other plugins
-        wget https://github.com/DataDog/jmeter-datadog-backend-listener/releases/download/0.4.0/jmeter-datadog-backend-listener-0.4.0.jar -P $JMETER_HOME/lib/ext/
-        wget https://repo1.maven.org/maven2/com/blazemeter/jmeter-parallel/0.11/jmeter-parallel-0.11.jar -P $JMETER_HOME/lib/ext/
-        wget https://repo1.maven.org/maven2/com/blazemeter/jmeter-plugins-random-csv-data-set/0.8/jmeter-plugins-random-csv-data-set-0.8.jar -P $JMETER_HOME/lib/ext/
+        wget https://github.com/DataDog/jmeter-datadog-backend-listener/releases/download/0.4.0/jmeter-datadog-backend-listener-0.4.0.jar -P /opt/apache-jmeter-5.4.1/lib/ext/
+        wget https://repo1.maven.org/maven2/com/blazemeter/jmeter-parallel/0.11/jmeter-parallel-0.11.jar -P /opt/apache-jmeter-5.4.1/lib/ext/
+        wget https://repo1.maven.org/maven2/com/blazemeter/jmeter-plugins-random-csv-data-set/0.8/jmeter-plugins-random-csv-data-set-0.8.jar -P /opt/apache-jmeter-5.4.1/lib/ext/
 
 
 
@@ -77,7 +77,7 @@ jobs:
 
         echo "Latest file: $latest_file"
 
-        cd  $JMETER_HOME/bin/
+        cd  /opt/apache-jmeter-5.4.1/bin/
 
         # Use the latest .jtl file to generate the CSV report
         ./JMeterPluginsCMD.sh --generate-csv ./aggregated_report.csv \
