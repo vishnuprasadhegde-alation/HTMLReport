@@ -94,11 +94,10 @@ jobs:
 
         echo "Latest file: $latest_file"
 
-        cd  /opt/apache-jmeter-5.4.1/bin/
 
         # Use the latest .jtl file to generate the CSV report
-        JMeterPluginsCMD.sh --generate-csv ./aggregated_report.csv \
-          --input-jtl ${{ env.latest_file }} \
+        /opt/apache-jmeter-5.4.1/bin/JMeterPluginsCMD.sh --generate-csv ./aggregated_report.csv \
+          --input-jtl ./resultfileupload/*.jtl \
           --plugin-type AggregateReport \
           --exclude-label-regex true \
           --exclude-labels '.*\/.*|.*Token.*|.*BeanShell.*|bzm.*'
