@@ -17,12 +17,12 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    # Step 2: Install Java (required by JMeter)
-    - name: Install OpenJDK 8 (Adoptium)
+    # Step 2: Install OpenJDK 8 (using Zulu OpenJDK distribution)
+    - name: Install OpenJDK 8 (Zulu)
       uses: actions/setup-java@v2
       with:
         java-version: '8'
-        distribution: 'adoptium'
+        distribution: 'zulu'  
     
     # Step 3: Download and install JMeter
     - name: Install JMeter
