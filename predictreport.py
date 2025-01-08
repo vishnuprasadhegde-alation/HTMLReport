@@ -84,7 +84,6 @@ combined_df1.to_csv('./results_aggregated.csv', index=False)
 print("results_aggregated CSV file created successfully with Date column!")
 
 
-
 # Use glob to get a list of all CSV files in the directory
 csv_files = glob.glob(os.path.join(csv_directory, '*.csv'))
 latest_file=""
@@ -116,7 +115,6 @@ df = df.sort_values(by='Date')
 # Set 'Date' as index
 df.set_index('Date', inplace=True)
 df['day_of_week'] = df.index.dayofweek
-
 
 df.dropna(subset=['Tag', 'Custom_Fields', 'ReadColumnAPI', 'Update column values API', 'Login','datasources','Schema Selection','Table selection','Column Selection','Logout', 'day_of_week'], inplace=True)
 
@@ -326,7 +324,6 @@ def generate_trends_graph2(df_tps_trend_graph):
     plt.close()
     return trends_graph_file
 
-
 # Load data (replace this with your own data or CSV)
 # data = {
 #     "Date": pd.date_range(start="2024-12", periods=30),
@@ -337,9 +334,30 @@ def generate_trends_graph2(df_tps_trend_graph):
 
 #Code for printing table for latest numbers in html report
 df_latest = pd.read_csv(latest_file)
+df_latest.iloc[:, 2:9] = df_latest.iloc[:, 2:9] / 1000
+df_sla=pd.read_csv('./performanceSLAvalues.csv')
+
+# df_sla.columns = df_sla.columns.str.strip()
+df_sla['SLA'] = pd.to_numeric(df_sla['SLA'], errors='coerce')
+
+sla_dict = pd.Series(df_sla['SLA'].values, index=df_sla['Label']).to_dict()
+
+df_latest['SLA Breach'] = df_latest.apply(
+    lambda row: row['99% Line'] > sla_dict.get(row['Label'], float('inf')),
+    axis=1
+)
+
+def colorize(val):
+    background_color = 'red' if val else 'green'
+    text_color = 'white'  # Set text color to white
+    return f'background-color: {background_color}; color: {text_color}'
+
+styled_df_latest = df_latest.style.applymap(colorize, subset='SLA Breach').hide(axis='index')
+
+styled_df_latest_final = styled_df_latest.format({col: '{:.3f}' for col in styled_df_latest.columns if col not in ['SLA Breach', '# Samples','Error %','Label']})
 
 #Render table for latest numbers
-table_html = df_latest.to_html(index=False, border=1, classes="table")
+table_html = styled_df_latest_final.to_html(index=True, border=1, classes="table")
 
 #Code for printing component level comparison in html report
 df=pd.read_csv('./responsetime_aggregated.csv')
@@ -351,11 +369,20 @@ df_component=df.T
 df_component.iloc[:,:] = df_component.iloc[:,:] / 1000
 print(df_component.head())
 
-df_component['Regression status']=df_component[df_component.columns[-1]] > (df_component[df_component.columns[-2]]+1)
+df_component['Regression status']= df_component[df_component.columns[-1]] > (df_component[df_component.columns[-2]]+1)
 
+# Step 2: Define the colorizing function to apply red or green based on the condition
+def colorize(val):
+    background_color = 'red' if val else 'green'
+    text_color = 'white'  # Set text color to white
+    return f'background-color: {background_color}; color: {text_color}'
+
+styled_df = df_component.style.applymap(colorize, subset='Regression status')
+
+styled_df_final = styled_df.format({col: '{:.3f}' for col in styled_df.columns if col not in ['Regression status','Transaction Name']})
 
 # Render table for component level comparison numbers
-table_html_component = df_component.to_html(index=True, border=1, classes="table")
+table_html_component = styled_df_final.to_html(index=True, border=1, classes="table")
 
 # df = pd.DataFrame(data)
 
@@ -370,7 +397,10 @@ throughput_trend_graph=generate_trends_graph2(df_tps_trend_graph)
 
 # Create text summary
 text_summary = """
-This report showcases Transaction level Response times trends & Predictions, Error, Throughput trends for the components of Alation application. We have considered the last five releases test results for the analysis and future two month response times are predicted. 
+This report showcases Transaction level Response times trends & Predictions, Error, Throughput trends for the components of Alation application. We have considered the last five releases test results for the analysis and future two month response times are predicted.
+
+
+
 """
 
 # Load external HTML template

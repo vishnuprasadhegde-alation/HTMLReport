@@ -1,0 +1,50 @@
+Label,SLA
+Tag,5
+Custom_Fields,5
+DS_objects_Query_API,5
+ReadColumnAPI,5
+Flag,5
+Read Articles,5
+CreateArticleSimple,5
+SimpleArticlesCreate,5
+Update column values API,5
+update articles API,5
+update complex articles API,5
+Login,5
+Homepage,30
+datasources,5
+datasource,5
+DS Page,5
+Compose-Home,15
+schema,5
+DS Selection,5
+Compose-Connection-settings,5
+HTTP Request-executesession,5
+Compose-Query-Run,5
+query_run,5
+Schema Selection,5
+table,5
+Domain,5
+Table selection,5
+Search,15
+Lineage,5
+column,5
+query,5
+Create Glosary,5
+Open Domain,5
+connectors,5
+CreateArticle,5
+term,5
+Compose-Queryfetchresults,5
+Result Latest,5
+Document hub,5
+Open Folder,5
+Open Document,5
+Export-Query-Run,5
+query_export,5
+Compose-export-Connection-settings,5
+Govern,5
+Launch Workflows,15
+Compose-Export-Queryfetchresults,5
+Column Selection,5
+Logout,5
