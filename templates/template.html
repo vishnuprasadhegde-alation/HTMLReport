@@ -173,13 +173,14 @@ body {
 		<div class="tab">
 			<button class="tablinks active" onclick="openCity(event, 'Prediction Graphs')">Response Time Prediction Graphs</button>
             <button class="tablinks" onclick="openCity(event, 'Trend Graphs')">Trend Graphs</button>
-			<button class="tablinks" onclick="openCity(event, 'Latest Numbers')">Latest Release Numbers</button>
-			<button class="tablinks" onclick="openCity(event, 'Component level comparison')">Component level comparison (Release vs Release)</button>
+			<button class="tablinks" onclick="openCity(event, 'Latest Release Numbers')">Latest Release</button>
+			<button class="tablinks" onclick="openCity(event, 'Component level comparison')">Component level comparison(Release vs Release)</button>
+            <button class="tablinks" onclick="openCity(event, 'Non-Release Execution Numbers')">Non-Release Executions</button>
 		</div>
 		<!-- Tab content -->
-		<div id="Latest Numbers" class="tabcontent">
+		<div id="Latest Release Numbers" class="tabcontent">
 			<div class="column">
-				<h2>Data Table (Response Time in milliseconds)</h2>
+				<h2>Data Table (Response Time in seconds)</h2>
                 {{ table | safe }}
             
 			</div>
@@ -211,6 +212,12 @@ body {
 			<div class="column">
 				<h2>Throughput Trends</h2>
 				<img src="{{ throughput_trend_graph }}" alt="Throughput Trends" />
+			</div>
+		</div>
+        <div id="Non-Release Execution Numbers" class="tabcontent">
+			<div class="column">
+				<h2>Data Table (Response Time in seconds)</h2>
+                {{ table2 | safe }}
 			</div>
 		</div>
 	</body>
