@@ -22,7 +22,7 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '8'
-        distribution: 'adoptopenjdk'
+        distribution: 'openjdk'
     
     # Step 3: Download and install JMeter
     - name: Install JMeter
