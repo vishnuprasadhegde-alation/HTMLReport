@@ -80,7 +80,7 @@ jobs:
         cd  /opt/jmeter/bin/
 
         # Use the latest .jtl file to generate the CSV report
-        ./JMeterPluginsCMD.sh --generate-csv ./aggregated_report.csv \
+        /opt/jmeter/bin/JMeterPluginsCMD.sh --generate-csv ./aggregated_report.csv \
           --input-jtl ${{ env.latest_file }} \
           --plugin-type AggregateReport \
           --exclude-label-regex true \
