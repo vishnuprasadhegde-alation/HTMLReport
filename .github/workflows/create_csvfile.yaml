@@ -61,6 +61,8 @@ jobs:
         # Download cmdrunner-2.2.jar for JMeter Plugin Manager
         wget https://repo1.maven.org/maven2/kg/apc/cmdrunner/2.2/cmdrunner-2.2.jar -P /opt/apache-jmeter-5.4.1/lib/
 
+        wget https://repo1.maven.org/maven2/kg/apc/cmdrunner/2.3/cmdrunner-2.3.jar -P /opt/apache-jmeter-5.4.1/lib/
+
         # Change to the ext directory
         cd /opt/apache-jmeter-5.4.1/lib/ext/ 
 
