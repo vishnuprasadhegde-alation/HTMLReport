@@ -24,7 +24,11 @@ jobs:
         java-version: '8'
         distribution: 'zulu'  
     
-    # Step 3: Download and install JMeter
+    # Step 3: Install wegt 
+    - name: Install wget
+      run: sudo apt-get update && sudo apt-get install -y wget
+
+    # Step 4: Download and install JMeter
     - name: Install JMeter
       run: |
         wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.4.1.tgz
@@ -34,7 +38,7 @@ jobs:
         echo "JMETER_HOME=/opt/apache-jmeter-5.4.1" >> $GITHUB_ENV
         echo "PATH=\$PATH:/opt/apache-jmeter-5.4.1/bin" >> $GITHUB_ENV
 
-    # Step 4: Install JMeter Plugins (using JMeter Plugin Manager)
+    # Step 5: Install JMeter Plugins (using JMeter Plugin Manager)
     - name: Install JMeter Plugins
       run: |
         # Download cmdrunner-2.3.jar for JMeter Plugin Manager
