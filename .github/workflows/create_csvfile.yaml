@@ -36,8 +36,8 @@ jobs:
     - name: Install JMeter Plugins
       run: |
         # Download and install the JMeter Plugins Manager
-        wget https://jmeter-plugins.org/files/jmeter-plugins-manager-1.10.jar
-        mv jmeter-plugins-manager-1.10.jar /opt/jmeter/lib/ext/
+        wget https://jmeter-plugins.org/get/ -O jmeter-plugins-manager.jar
+        mv jmeter-plugins-manager.jar /opt/jmeter/lib/ext/
         cd  /opt/jmeter/bin/
         ./PluginsManagerCMD.sh install jpgc-dummy,jpgc-graphs-basic,jpgc-graphs-additional,jmeter-grpc-request
 
