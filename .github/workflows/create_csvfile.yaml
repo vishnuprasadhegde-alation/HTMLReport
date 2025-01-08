@@ -10,7 +10,7 @@ on:
     branches:
       - main  # Trigger on pull request to the main branch
     paths:
-      - 'resultfileupload/*''
+      -'resultfileupload/*'
 
 jobs:
   jmeter-test:
