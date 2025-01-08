@@ -11,6 +11,7 @@ on:
       - main  # Trigger on pull request to the main branch
     paths:
       -'resultfileupload/*'
+  workflow_dispatch: # Allow manual trigger from GitHub UI
 
 jobs:
   jmeter-test:
