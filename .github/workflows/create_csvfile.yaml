@@ -30,7 +30,7 @@ jobs:
         wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.4.1.tgz
         tar -xvzf apache-jmeter-5.4.1.tgz
         sudo mv apache-jmeter-5.4.1 /opt/jmeter
-        echo "export PATH=\$PATH:/opt/jmeter/bin" >> $GITHUB_ENV
+        export PATH=$PATH:/opt/jmeter/bin
 
     # Step 4: Install JMeter Plugins (using JMeter Plugin Manager)
     - name: Install JMeter Plugins
@@ -77,10 +77,20 @@ jobs:
     # Step 6: Create the CSV report from the .jtl file
     - name: Generate CSV from JTL file
       run: |
+        latest_file=$(ls -t ./resultfileupload/*.jtl | head -n 1)
+          
+        # Ensure that a file was found
+        if [ -z "$latest_file" ]; then
+          echo "No .jtl file found!"
+          exit 1
+        fi
+
+        echo "Latest file: $latest_file"
+
         cd  /opt/jmeter/bin/
 
         # Use the latest .jtl file to generate the CSV report
-        /opt/jmeter/bin/JMeterPluginsCMD.sh --generate-csv ./aggregated_report.csv \
+        ./JMeterPluginsCMD.sh --generate-csv ./aggregated_report.csv \
           --input-jtl ${{ env.latest_file }} \
           --plugin-type AggregateReport \
           --exclude-label-regex true \
