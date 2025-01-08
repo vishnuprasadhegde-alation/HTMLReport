@@ -97,7 +97,7 @@ jobs:
         cd  /opt/apache-jmeter-5.4.1/bin/
 
         # Use the latest .jtl file to generate the CSV report
-        ./JMeterPluginsCMD.sh --generate-csv ./aggregated_report.csv \
+        JMeterPluginsCMD.sh --generate-csv ./aggregated_report.csv \
           --input-jtl ${{ env.latest_file }} \
           --plugin-type AggregateReport \
           --exclude-label-regex true \
