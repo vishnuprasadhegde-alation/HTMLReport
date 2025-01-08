@@ -32,11 +32,11 @@ jobs:
     - name: Install JMeter
       run: |
         wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.4.1.tgz
-        tar -xvzf apache-jmeter-5.4.1.tgz
-        sudo mv apache-jmeter-5.4.1 /opt/
-        /opt/apache-jmeter-5.4.1/bin/jmeter --version
+        sudo tar -xvzf apache-jmeter-5.4.1.tgz -C /opt/
         echo "JMETER_HOME=/opt/apache-jmeter-5.4.1" >> $GITHUB_ENV
         echo "PATH=\$PATH:/opt/apache-jmeter-5.4.1/bin" >> $GITHUB_ENV
+        $JMETER_HOME/bin/jmeter --version
+
 
     # Step 5: Install JMeter Plugins (using JMeter Plugin Manager)
     - name: Install JMeter Plugins
