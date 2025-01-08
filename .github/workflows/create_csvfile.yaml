@@ -24,19 +24,36 @@ jobs:
         java-version: '8'
         distribution: 'zulu'  
     
-    # Step 3: Install wegt 
-    - name: Install wget
-      run: sudo apt-get update && sudo apt-get install -y wget
 
     # Step 4: Download and install JMeter
     - name: Install JMeter
       run: |
         wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.4.1.tgz
-        sudo tar -xvzf apache-jmeter-5.4.1.tgz -C /opt/
-        # echo "JMETER_HOME=/opt/apache-jmeter-5.4.1" >> $GITHUB_ENV
-        echo "PATH=\$PATH:/opt/apache-jmeter-5.4.1/bin" >> $GITHUB_ENV
-        /opt/apache-jmeter-5.4.1/bin/jmeter --version
+        tar -xvzf apache-jmeter-5.4.1.tgz -C /opt/
 
+
+    # Step 4: check directories 
+      - name: Check if directory exists
+        run: |
+          if [ -d "/opt/apache-jmeter-5.4.1" ]; then
+            echo "JMeter directory exists."
+          else
+            echo "JMeter directory does not exist."
+          fi
+
+          if [ -d "/opt/apache-jmeter-5.4.1/bin" ]; then
+            echo "bin directory exists."
+          else
+            echo "bin directory does not exist."
+          fi
+
+          if [ -d "/opt/apache-jmeter-5.4.1/lib" ]; then
+            echo "lib directory exists."
+          else
+            echo "lib directory does not exist."
+          fi
+
+        
 
     # Step 5: Install JMeter Plugins (using JMeter Plugin Manager)
     - name: Install JMeter Plugins
