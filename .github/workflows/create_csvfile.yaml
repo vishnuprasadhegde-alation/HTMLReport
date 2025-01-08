@@ -71,7 +71,7 @@ jobs:
         java -cp jmeter-plugins-manager.jar org.jmeterplugins.repository.PluginManagerCMDInstaller
 
         # Install required plugins using PluginsManagerCMD.sh
-        /opt/apache-jmeter-5.4.1/bin/PluginsManagerCMD.sh install jpgc-dummy,jpgc-graphs-basic,jpgc-graphs-additional,jmeter-grpc-request
+        /opt/apache-jmeter-5.4.1/bin/PluginsManagerCMD.sh install jpgc-dummy,jpgc-graphs-basic,jpgc-graphs-additional,jmeter-grpc-request,jpgc-cmd,jpgc-synthesis,jpgc-filterresults
 
         # Download additional required JARs for other plugins
         wget https://github.com/DataDog/jmeter-datadog-backend-listener/releases/download/0.4.0/jmeter-datadog-backend-listener-0.4.0.jar -P /opt/apache-jmeter-5.4.1/lib/ext/
@@ -79,7 +79,7 @@ jobs:
         wget https://repo1.maven.org/maven2/com/blazemeter/jmeter-plugins-random-csv-data-set/0.8/jmeter-plugins-random-csv-data-set-0.8.jar -P /opt/apache-jmeter-5.4.1/lib/ext/
 
 
-
+https://jmeter-plugins.org/get/
 
     # Step 6: Create the CSV report from the .jtl file
     - name: Generate CSV from JTL file
@@ -93,8 +93,6 @@ jobs:
         fi
 
         echo "Latest file: $latest_file"
-
-        sudo chmod +x /opt/apache-jmeter-5.4.1/bin/JMeterPluginsCMD.sh
 
 
         # Use the latest .jtl file to generate the CSV report
